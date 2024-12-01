@@ -31,7 +31,7 @@ After applaying board preset you must:
   *The DMA setup is shown in the screenshot*
 
   ## 3. AXI Stream FIFO setup
-  ![image](https://github.com/user-attachments/assets/d81d4a4b-b258-4de2-bb02-600ef22b8f61)
+  ![image](https://github.com/user-attachments/assets/66ae50af-1eca-4808-abe2-55e1e161341f)
   *The AXI Stream FIFO setup is shown in the screenshot above. You should use proper FIFO Depth for your own design*
 
   ## Overall setup
