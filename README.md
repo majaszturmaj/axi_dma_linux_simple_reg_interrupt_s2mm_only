@@ -8,7 +8,7 @@ How to connect Processing System, AXI DMA and your data source (let's say it is 
 * If you use different clock frequency for *your counter* as for the DMA, then you must add Axi4-Stream Data FIFO block between your counter and S2MM DMA channel. It should be configured with proper depth and it must have Independend Clocks setting set to Yes, and Enable TLAST (with Interrupt mode DMA will send Interrupt when tvalid with tlast is received, indicating the end of frame).
 * Your data source to match this example should send 8 32-bit data via AXI master interface, with the tlast signal accompanying the tvalid signal during the eighth sending. And then, in the same manner, you continue transmitting in a loop.
   
-  ![image](https://github.com/user-attachments/assets/3fa9f762-a49f-4d46-b5c8-061e1b40d820)
+  ![image](https://github.com/user-attachments/assets/4ab2d01c-5e61-420d-9dde-e8a1d79c3b54)
   *AXI Stream that recieves the data from the counter connected to S2MM DMA channel*
 
   ![image](https://github.com/user-attachments/assets/df085c19-4167-47b0-9a8a-32905321ad14)
