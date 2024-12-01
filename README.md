@@ -1,6 +1,9 @@
 # S2MM DMA channel with Interrupts receiving on Linux with userspace application
 An linux C application that utilizes S2MM DMA in Direct Register Mode with Interrupts to receive 10 packets of data (8 x 32 each).
 
+## When to use
+Use this setup when you need to transfer data from a custom AXI master data source (e.g., a counter or other streaming device) to memory via an AXI DMA, and you want to trigger data handling in your userspace Linux application using interrupts. This is particularly suitable for applications requiring deterministic handling of packetized data with end-of-frame signaling.
+
 # Hardware setup
 How to connect Processing System, AXI DMA and your data source (let's say it is a **counter with master axi interface output**) in Vivado.
 
