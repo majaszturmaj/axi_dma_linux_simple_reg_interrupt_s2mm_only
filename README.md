@@ -1,6 +1,8 @@
 # S2MM DMA channel with Interrupts receiving on Linux with userspace application
 An linux C application that utilizes S2MM DMA in Direct Register Mode with Interrupts to receive 10 packets of data (8 x 32 each).
 
+**This setup is based on the Hackster article ["AXI DMA interrupt with UIO driver in Embedded Linux"](https://www.hackster.io/sasha-falkovich/axi-dma-interrupt-with-uio-driver-in-embedded-linux-6dc155) by Alex Falkovich, shared under the GPL3+ license.**
+
 ## When to use
 Use this setup when you need to transfer data from a custom AXI master data source (e.g., a counter or other streaming device) to memory via an AXI DMA, and you want to trigger data handling in your userspace Linux application using interrupts. This is particularly suitable for applications requiring deterministic handling of packetized data with end-of-frame signaling.
 
