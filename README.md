@@ -1,7 +1,46 @@
-# S2MM DMA channel with Interrupts receiving on Linux with userspace application
-An linux C application that utilizes S2MM DMA in Direct Register Mode with Interrupts to receive 10 packets of data (8 x 32 each).
+*****!!! READ CAUTION NOTE !!!*****
 
-**This setup is based on the Hackster article ["AXI DMA interrupt with UIO driver in Embedded Linux"](https://www.hackster.io/sasha-falkovich/axi-dma-interrupt-with-uio-driver-in-embedded-linux-6dc155) by Alex Falkovich, shared under the GPL3+ license.**
+# S2MM DMA channel with Interrupts receiving on Linux with userspace application
+An linux C application that utilizes S2MM DMA in Direct Register Mode with Interrupts to constantly receive packets of data (8 x 32 each) (you can edit it to read only specified number).
+
+**This setup was orginally based on the Hackster article ["AXI DMA interrupt with UIO driver in Embedded Linux"](https://www.hackster.io/sasha-falkovich/axi-dma-interrupt-with-uio-driver-in-embedded-linux-6dc155) by Alex Falkovich (shared under the GPL3+ license),
+but I've removed interrupt-handling thread.**
+|
+|
+ \>  Instead, my code utilizes`dma_s2mm_sync()` function that reads status register until **IOC_IRQ_FLAG** or **IDLE_FLAG** is set.
+ Then it must reset this flag. But it is not enough. The DMA must be completly reset again (somehow two times), and then feed with dst address register and buffer length register to start new operation. I've tried multiple combinations but the one you can see in the code works the best for me. 
+
+But still it is having a serious problem described below.
+
+> [!CAUTION]
+> The data read from destination registers is sometimes incomplete - it is truncated from lower registers as can be seen on the commandline screenshot:
+> ![console_output](https://github.com/user-attachments/assets/c0da17ce-7945-45e0-bcb7-111c031f1d67)
+> Running some time and counting by script the received packets from each channel, it shows:
+
+| Channel number | Packets received | % of total |
+|-------|------------------|------------------|
+| 1     | 567              | 7.54%           |
+| 2     | 670              | 8.91%           |
+| 3     | 799              | 10.63%          |
+| 4     | 916              | 12.18%          |
+| 5     | 1022             | 13.59%          |
+| 6     | 1112             | 14.79%          |
+| 7     | 1192             | 15.85%          |
+| 8     | 1241             | 16.50%          |
+
+
+I don't have a solution for this problem yet.
+
+
+
+
+
+
+[!NOTE]  
+> The dst address space is bigger than actual bytes to be received because when it was equal the data truncation was happening more often.
+
+
+
 
 ## When to use
 Use this setup when you need to transfer data from a custom AXI master data source (e.g., a counter or other streaming device) to memory via an AXI DMA, and you want to trigger data handling in your userspace Linux application using interrupts. This is particularly suitable for applications requiring deterministic handling of packetized data with end-of-frame signaling.
