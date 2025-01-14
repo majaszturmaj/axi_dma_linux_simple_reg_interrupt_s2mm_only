@@ -36,7 +36,7 @@ I don't have a solution for this problem yet.
 
 
 
-[!NOTE]  
+> [!NOTE]  
 > The dst address space is bigger than actual bytes to be received because when it was equal the data truncation was happening more often.
 
 
